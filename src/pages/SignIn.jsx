@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { useNavigate } from "react-router-dom";
+import { toast } from "keep-react";
 
 const SignIn = () => {
   const { user, setUser, signIn } = useContext(AuthContext);
@@ -21,6 +22,7 @@ const SignIn = () => {
         const user = userCredential.user;
         console.log(user);
         setUser(user);
+        toast.success("Admin Login Successful.");
         await navigate("/dashboard");
       })
       .catch((error) => {

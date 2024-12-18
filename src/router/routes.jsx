@@ -5,6 +5,8 @@ import Home from "../pages/Home";
 import SignIn from "../pages/SignIn";
 import Dashboard from "../pages/Dashboard";
 import PrivateRoute from "./PrivateRoute";
+import AddMember from "../pages/AddMember";
+import About from "../pages/About";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,18 @@ const router = createBrowserRouter([
             <Dashboard></Dashboard>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/add-member",
+        element: (
+          <PrivateRoute>
+            <AddMember></AddMember>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/about",
+        element: <About></About>,
       },
     ],
   },

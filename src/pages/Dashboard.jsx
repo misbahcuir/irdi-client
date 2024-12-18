@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Dashboard = () => {
   return (
@@ -13,9 +14,9 @@ const Dashboard = () => {
         <div className="grid grid-cols-2 gap-6 w-full max-w-3xl">
           {/* Button Pair 1: Members and Add Member */}
           <button className="btn btn-primary w-full">Members</button>
-          <button className="btn btn-outline btn-primary w-full">
+          <Link to="/add-member" className="btn btn-outline btn-primary w-full">
             Add Member
-          </button>
+          </Link>
 
           {/* Button Pair 2: Blogs and Create Blog */}
           <button className="btn btn-primary w-full">Blogs</button>
