@@ -1,16 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import logo from "../assets/logo-small.png";
 import {
   Navbar,
   MobileNav,
   Typography,
   IconButton,
+  Collapse,
+  alert,
 } from "@material-tailwind/react";
 import { FaFacebook, FaInstagram, FaLinkedin } from "react-icons/fa";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProvider";
+import { BiLogIn } from "react-icons/bi";
 
 const Header = () => {
   const [openNav, setOpenNav] = React.useState(false);
+  const { user, setUser, logOut } = useContext(AuthContext);
+  let navigate = useNavigate();
 
   React.useEffect(() => {
     window.addEventListener(
@@ -48,8 +54,21 @@ const Header = () => {
     }
   };
 
+  const handleLogOut = () => {
+    // Call Firebase LogOut from AuthContext
+    logOut()
+      .then(async () => {
+        console.log("logout successfull");
+        setUser(null);
+        await navigate("/");
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+  };
+
   return (
-    <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 border-none">
+    <Navbar className="mx-auto max-w-screen-xl px-4 py-2 lg:px-8 lg:py-4 border-none bg-transparent shadow-none">
       <div className="container mx-auto flex items-center justify-between text-blue-gray-900">
         <Typography
           as="a"
@@ -60,6 +79,12 @@ const Header = () => {
         </Typography>
         <div className="hidden lg:block">{navList}</div>
         <div className="flex items-center gap-3">
+          {user && user.email && (
+            <button onClick={handleLogOut}>
+              {" "}
+              <BiLogIn className="text-2xl"></BiLogIn>{" "}
+            </button>
+          )}
           <label className="grid cursor-pointer place-items-center mr-4">
             <input
               onChange={handleTheme}
